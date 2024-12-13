@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Alaska Search Engine</title>
+</head>
+
+<body>
+    <center>
+        <h1>Alaska Search Engine</h1>
+        <form action="/" method="post">
+            <div>
+                <input type="radio" id="bm25" name="retrieval_model" value="BM25" checked>
+                <label for="bm25">BM25</label>
+                <input type="radio" id="qlm" name="retrieval_model" value="QLM">
+                <label for="qlm">Query Likelihood Model (QLM)</label>
+                <input type="radio" id="okapitf" name="retrieval_model" value="OKAPITF">
+                <label for="okapitf">Okapi TF</label>
+            </div>
+            <br/>
+            <label for="query">Query:</label>
+            <input type="text" id="query" name="query">
+            <button type="submit">Search</button>
+        </form>
+    <br>
+    <br> {% if results %}
+    <div style="width: 90%">
+        <div>{{ result_info|safe }}</div>
+        <table border="2">
+            <tr>
+                <th>Score</th>
+                <th>URL</th>
+            </tr>
+            {% for result in results %}
+            <tr>
+                <td>{{ result[1] }}</td>
+                <td style="word-wrap: break-word; max-width: 50vw;">
+                    <a href="{{ result[0] }}" target="_blank">{{ result[0] }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+    </center>
+</body>
+
+</html>
